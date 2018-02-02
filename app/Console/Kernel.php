@@ -24,8 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call('\App\Repositories\GetStatistic@getExmo')
+                    ->everyMinute()->name('get-from-exmo')->withoutOverlapping();
+        $schedule->call('\App\Repositories\GetStatistic@getBitfinex')
+                    ->everyMinute()->name('get-from-bitfinex')->withoutOverlapping();
     }
 
     /**

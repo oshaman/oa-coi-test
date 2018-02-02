@@ -15,6 +15,9 @@ Route::get('/', 'IndexController@show');
 Route::get('/about', 'IndexController@about');
 Route::get('/policy', 'IndexController@policy');
 
+Route::get('/stat/{coin}/{hours?}', 'CoinController@show')->middleware('auth')
+                ->name('stat')->where(['coin'=> '[\w_]{7}', 'hours'=>'[\d]']);
+
 Auth::routes();
 // Social Auth
 Route::get('auth/social', 'Auth\SocialAuthController@show')->name('social.login');

@@ -53,7 +53,21 @@ return [
             'strict' => true,
             'engine' => 'InnoDB',
         ],
-
+        'med_pravda' => array(
+            'driver' => 'mysql',
+            'host' => env('DB_MP_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_MP_DATABASE', 'forge'),
+            'username' => env('DB_MP_USERNAME', 'forge'),
+            'password' => env('DB_MP_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'prefix' => '',
+            'strict' => false,
+//            'strict' => true,
+            'engine' => null,
+        ),
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

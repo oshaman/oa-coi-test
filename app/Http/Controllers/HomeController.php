@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\GetStatistic;
+use App\Repositories\Translate;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,7 +17,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
