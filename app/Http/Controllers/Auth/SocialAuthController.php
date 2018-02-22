@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use Exception;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -63,17 +63,21 @@ class SocialAuthController extends Controller
      * @param $driver
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback( $driver )
+    public function handleProviderCallback($driver )
     {
         try {
             $user = Socialite::driver($driver)->user();
         } catch (Exception $e) {
+            \Log::warning('Ошибка авторизации - ' . $e->getMessage());
+            return $this->sendFailedResponse("Ошибка авторизации.");
+        }/*try {
+            $user = Socialite::driver($driver)->user();
+        } catch (Exception $e) {
             return $this->sendFailedResponse($e->getMessage());
-        }
-
+        }*/
         // check for email in returned user
         return empty( $user->email )
-            ? $this->sendFailedResponse("No email id returned from {$driver} provider.")
+            ? $this->sendFailedResponse("Авторизация не может быть произведена, {$driver} не возвращает email.")
             : $this->loginOrCreateAccount($user, $driver);
     }
 

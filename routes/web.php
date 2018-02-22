@@ -16,7 +16,10 @@ Route::get('/about', 'IndexController@about');
 Route::get('/policy', 'IndexController@policy');
 
 Route::get('/stat/{coin}/{hours?}', 'CoinController@show')->middleware('auth')
-                ->name('stat')->where(['coin'=> '[\w_]{7}', 'hours'=>'[\d]']);
+    ->name('stat')->where(['coin' => '[\w_]{7}', 'hours' => '[\d]{1,2}']);
+
+Route::match(['post', 'get'], 'map', 'MapController@mapHandler')->middleware('auth')->name('maps');
+
 
 Auth::routes();
 // Social Auth

@@ -40,5 +40,6 @@ return [
         'eth_usd' => 'ethusd',
         'xrp_usd' => 'xrpusd',
         'etc_usd' => 'etcusd',
+        'zec_usd' => 'zecusd',
     ],
 ];

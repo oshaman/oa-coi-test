@@ -49,5 +49,10 @@ return [
         'client_secret' => env('TW_SECRET'),
         'redirect'      => env('APP_URL') . '/oauth/twitter/callback',
     ],
+    'facebook' => [
+        'client_id' => env('FB_ID'),
+        'client_secret' => env('FB_SECRET'),
+        'redirect' => env('APP_URL') . '/oauth/facebook/callback',
+    ]
 
 ];

@@ -75,6 +75,9 @@
         </div>
     </nav>
     <div class="container">
+        @foreach($errors->all() as $message)
+            <h3>{{ $message }}</h3>
+        @endforeach
         @yield('content')
     </div>
 </div>

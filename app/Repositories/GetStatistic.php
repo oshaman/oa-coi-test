@@ -17,6 +17,7 @@ class GetStatistic
         if (null === $hours) {
             $date = Carbon::now()->subDay();
         } else {
+//            $date = Carbon::now()->subMinutes($hours);
             $date = Carbon::now()->subHours($hours);
         }
 
@@ -40,7 +41,7 @@ class GetStatistic
 
     public function getExmo()
     {
-        $url = 'https://api.exmo.com/v1/trades/?pair=BCH_USD,ETH_USD,XRP_USD,ETC_USD';
+        $url = 'https://api.exmo.com/v1/trades/?pair=BCH_USD,ETH_USD,XRP_USD,ETC_USD,ZEC_USD';
 
         try {
             $res = file_get_contents($url);
@@ -81,10 +82,17 @@ class GetStatistic
 
     public function getBitfinex()
     {
-        $coins = ['bchusd', 'ethusd', 'xrpusd', 'etcusd'];
+        $coins = ['bchusd', 'ethusd', 'xrpusd', 'etcusd', 'zecusd'];
 
         foreach ($coins as $coin) {
-            $res = json_decode(file_get_contents('https://api.bitfinex.com/v1/trades/'.$coin));
+
+            try {
+                $res = json_decode(file_get_contents('https://api.bitfinex.com/v1/trades/' . $coin));
+            } catch (Exception $e) {
+                \Log::info("Bitfinex-coin - error - " . $e->getMessage() . ' - ' . date("d-m-Y H:i:s"));
+                $res = [];
+            }
+
 
             if (count($res) > 0) {
                 $price = array_column($res, 'price');
